@@ -15,6 +15,7 @@ import ManageVocabularies from './pages/admin/ManageVocabulary.tsx'
 import HomePage from './pages/User/Homepage.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
 
+// Define routes
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,24 +33,23 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />
       },
-
     ]
-
   },
   {
     path: '/dashboard',
-    element: <ProtectedRoute role="admin"><AdminPanel /></ProtectedRoute>,
+    element: <AdminPanel />
+    ,
     children: [
       {
         path: '/dashboard',
-        element: <AdminHome />
+        element: <ProtectedRoute role="admin"> <AdminHome /> </ProtectedRoute>
       },
       {
         path: '/dashboard/usersManagement',
         element: <UserManagement />
       },
       {
-        path: '/dashboard/mangeLessons',
+        path: '/dashboard/manageLessons',
         element: <ManageLessons />
       },
       {
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         element: <ManageVocabularies />
       }
     ]
-  },
+  }
 ])
 
 createRoot(document.getElementById('root')!).render(
@@ -65,5 +65,5 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </StrictMode>,
+  </StrictMode>
 )

@@ -10,9 +10,13 @@ interface AuthState {
   token: string | null;
 }
 
+// Check if user data exists in localStorage and load it into state
+const userFromStorage = localStorage.getItem("user");
+const tokenFromStorage = localStorage.getItem("token");
+
 const initialState: AuthState = {
-  user: null,
-  token: null,
+  user: userFromStorage ? JSON.parse(userFromStorage) : null,
+  token: tokenFromStorage || null,
 };
 
 const authSlice = createSlice({

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: "http://localhost:5000/api",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token) {
@@ -15,7 +15,7 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: "/auth/login",
+        url: "/users/login",
         method: "POST",
         body: credentials,
       }),
@@ -29,7 +29,7 @@ export const authApi = createApi({
 
     signup: builder.mutation({
       query: (user) => ({
-        url: "/auth/register",
+        url: "/users/signup",
         method: "POST",
         body: user,
       }),

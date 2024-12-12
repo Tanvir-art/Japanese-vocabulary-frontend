@@ -6,7 +6,7 @@ const Signup: React.FC = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
+    const [image, setImageUrl] = useState('');
     const [signupUser] = useSignupMutation();
     const navigate = useNavigate();
     const [error, setError] = useState('');
@@ -15,7 +15,7 @@ const Signup: React.FC = () => {
         e.preventDefault();
         setError('');
         try {
-            await signupUser({ name, email, password, imageUrl }).unwrap();
+            await signupUser({ name, email, password, image }).unwrap();
             navigate('/login');
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
@@ -79,7 +79,7 @@ const Signup: React.FC = () => {
                             id="imageUrl"
                             type="text"
                             placeholder="Enter image URL"
-                            value={imageUrl}
+                            value={image}
                             onChange={(e) => setImageUrl(e.target.value)}
                             className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
                         />

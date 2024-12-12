@@ -17,8 +17,9 @@ const Login: React.FC = () => {
         setError('');
         try {
             const response = await loginUser({ email, password }).unwrap();
-            dispatch(login({ user: response.user, token: response.token }));
-            navigate(response.user.role === 'admin' ? '/dashboard' : '/lessons');
+            console.log(response?.data?.role);
+            dispatch(login({ user: response?.data, token: response?.token }));
+            navigate(response?.data?.role === 'admin' ? '/dashboard' : '/lessons');
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(err?.data?.message || 'Login failed. Please try again.');
