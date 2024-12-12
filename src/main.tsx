@@ -7,6 +7,7 @@ import { store } from './redux/store.ts'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/Login.tsx'
 import Signup from './pages/Signup.tsx'
+import AdminPanel from './pages/admin/adminPanel.tsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <Signup />
+      },
+      {
+        path: '/admin',
+        element: <AdminPanel />
       }
     ]
   },
