@@ -1,6 +1,6 @@
 
 import { useGetUsersQuery, useUpdateUserRoleMutation } from "../../redux/api/authApi";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 interface User {
     _id: string;
@@ -11,19 +11,21 @@ interface User {
 
 
 const UserManagement: React.FC = () => {
-    const { data: users = [], isLoading, isError } = useGetUsersQuery({});
+    const { data: users, isLoading, isError } = useGetUsersQuery({});
+
     const [updateUserRole] = useUpdateUserRoleMutation();
     // const [selectedUser, setSelectedUser] = useState("");
 
     const handleRoleChange = async (id: string, role: string) => {
         try {
-            await updateUserRole({ id, role }).unwrap();
-            //   toast.success(`User role updated to ${role}`);
+            const response = await updateUserRole({ id, role }).unwrap();
+            console.log(response)
+            toast.success(`User role updated to ${role}`);
             // setSelectedUser("");
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.log(error)
-            //   toast.error("Failed to update user role");
+            toast.error("Failed to update user role");
         }
     };
 
@@ -44,7 +46,7 @@ const UserManagement: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user: User) => (
+                        {users?.data?.map((user: User) => (
                             <tr key={user._id} className="hover:bg-gray-100">
                                 <td className="border border-gray-300 p-2">{user.name}</td>
                                 <td className="border border-gray-300 p-2">{user.email}</td>

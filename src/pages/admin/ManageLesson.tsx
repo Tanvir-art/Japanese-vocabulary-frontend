@@ -20,24 +20,24 @@ const ManageLessons: React.FC = () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [editingLesson, setEditingLesson] = useState<any | null>(null);
-    const [formValues, setFormValues] = useState({ lessonName: '', lessonNumber: '' });
+    const [formValues, setFormValues] = useState({ lessonName: '' });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (editingLesson) {
-            await updateLesson({ id: editingLesson.id, ...formValues });
+            await updateLesson({ id: editingLesson._id, ...formValues });
             setEditingLesson(null);
         } else {
             await addLesson(formValues);
         }
-        setFormValues({ lessonName: '', lessonNumber: '' });
+        setFormValues({ lessonName: '' });
         refetch();
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleEdit = (lesson: any) => {
         setEditingLesson(lesson);
-        setFormValues({ lessonName: lesson.lessonName, lessonNumber: lesson.lessonNumber });
+        setFormValues({ lessonName: lesson.lessonName });
     };
 
     const handleDelete = async (id: string) => {
@@ -64,16 +64,7 @@ const ManageLessons: React.FC = () => {
                         required
                     />
                 </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">Lesson Number</label>
-                    <input
-                        type="number"
-                        value={formValues.lessonNumber}
-                        onChange={(e) => setFormValues({ ...formValues, lessonNumber: e.target.value })}
-                        className="mt-1 block w-full p-2 border border-gray-300 rounded"
-                        required
-                    />
-                </div>
+
                 <button
                     type="submit"
                     className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
@@ -85,7 +76,7 @@ const ManageLessons: React.FC = () => {
                         type="button"
                         onClick={() => {
                             setEditingLesson(null);
-                            setFormValues({ lessonName: '', lessonNumber: '' });
+                            setFormValues({ lessonName: '' });
                         }}
                         className="ml-4 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
                     >
@@ -96,7 +87,7 @@ const ManageLessons: React.FC = () => {
 
             {/* Lessons List */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {lessons.map((lesson: Lesson) => (
+                {lessons?.data?.map((lesson: Lesson) => (
                     <div
                         key={lesson._id}
                         className="bg-white p-4 shadow rounded flex flex-col justify-between"
@@ -109,7 +100,7 @@ const ManageLessons: React.FC = () => {
                         <div className="mt-4 flex space-x-2">
                             <button
                                 onClick={() => handleEdit(lesson)}
-                                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                             >
                                 Edit
                             </button>

@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                     </li>
                     <li>
                         <NavLink
-                            to="/dashboard/mangeLessons"
+                            to="/dashboard/manageLessons"
                             className={({ isActive }) =>
                                 `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
                                 }`

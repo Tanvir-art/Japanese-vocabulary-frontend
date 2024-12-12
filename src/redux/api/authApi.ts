@@ -12,6 +12,7 @@ export const authApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ["user", "lesson", "rentals", "coupon"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
@@ -36,38 +37,44 @@ export const authApi = createApi({
     }),
 
     getUsers: builder.query({
-      query: () => "/admin/users",
+      query: () => "/users/getAllUser",
+      providesTags: ["user"],
     }),
     updateUserRole: builder.mutation({
       query: ({ id, role }) => ({
-        url: `/admin/users/${id}`,
+        url: `/users/update/${id}`,
         method: "PUT",
         body: { role },
       }),
+      invalidatesTags: ["user"],
     }),
 
     getLessons: builder.query({
-      query: () => "/admin/lessons",
+      query: () => "/lessons/allLessons",
+      providesTags: ["lesson"],
     }),
     addLesson: builder.mutation({
       query: (lesson) => ({
-        url: "/admin/lessons",
+        url: "/lessons/addLesson",
         method: "POST",
         body: lesson,
       }),
+      invalidatesTags: ["lesson"],
     }),
     updateLesson: builder.mutation({
       query: ({ id, ...lesson }) => ({
-        url: `/admin/lessons/${id}`,
+        url: `/lessons/${id}`,
         method: "PUT",
         body: lesson,
       }),
+      invalidatesTags: ["lesson"],
     }),
     deleteLesson: builder.mutation({
       query: (id) => ({
-        url: `/admin/lessons/${id}`,
+        url: `/lessons/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["lesson"],
     }),
 
     getVocabulariesByLesson: builder.query({
