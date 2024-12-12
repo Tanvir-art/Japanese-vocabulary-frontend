@@ -12,12 +12,18 @@ import AdminHome from './pages/admin/adminHome.tsx'
 import UserManagement from './pages/admin/UserManagement.tsx'
 import ManageLessons from './pages/admin/ManageLesson.tsx'
 import ManageVocabularies from './pages/admin/ManageVocabulary.tsx'
+import HomePage from './pages/User/Homepage.tsx'
+import ProtectedRoute from './components/ProtectedRoute.tsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
+      {
+        path: '/',
+        element: <HomePage />
+      },
       {
         path: '/login',
         element: <Login />
@@ -32,7 +38,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <AdminPanel />,
+    element: <ProtectedRoute role="admin"><AdminPanel /></ProtectedRoute>,
     children: [
       {
         path: '/dashboard',
