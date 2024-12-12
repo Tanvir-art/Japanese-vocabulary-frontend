@@ -12,7 +12,7 @@ export const authApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["user", "lesson", "rentals", "coupon"],
+  tagTypes: ["user", "lesson", "vocabulary"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
@@ -78,27 +78,31 @@ export const authApi = createApi({
     }),
 
     getVocabulariesByLesson: builder.query({
-      query: (lessonId) => `/admin/vocabularies?lessonId=${lessonId}`,
+      query: (lessonId) => `/vocabulary/${lessonId}`,
+      providesTags: ["vocabulary"],
     }),
     addVocabulary: builder.mutation({
       query: (vocabulary) => ({
-        url: "/admin/vocabularies",
+        url: "/vocabulary/addVocabulary",
         method: "POST",
         body: vocabulary,
       }),
+      invalidatesTags: ["vocabulary"],
     }),
     updateVocabulary: builder.mutation({
       query: ({ id, ...vocabulary }) => ({
-        url: `/admin/vocabularies/${id}`,
+        url: `/vocabulary/${id}`,
         method: "PUT",
         body: vocabulary,
       }),
+      invalidatesTags: ["vocabulary"],
     }),
     deleteVocabulary: builder.mutation({
       query: (id) => ({
-        url: `/admin/vocabularies/${id}`,
+        url: `/vocabulary/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["vocabulary"],
     }),
   }),
 });

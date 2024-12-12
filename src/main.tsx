@@ -14,6 +14,7 @@ import ManageLessons from './pages/admin/ManageLesson.tsx'
 import ManageVocabularies from './pages/admin/ManageVocabulary.tsx'
 import HomePage from './pages/User/Homepage.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
+import LessonPage from './pages/User/LessonPage.tsx'
 
 // Define routes
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />
       },
+      {
+        path: "/lessons",
+        element: <ProtectedRoute role="user"> <LessonPage /> </ProtectedRoute>
+      }
     ]
   },
   {

@@ -1,5 +1,7 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logout } from "../redux/features/authSlice";
 
 interface SidebarProps {
     isOpen: boolean;
@@ -7,9 +9,17 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        dispatch(logout()); // Clear user data from Redux store
+        navigate("/login"); // Redirect to login page
+    };
+
     return (
         <aside
-            className={`fixed top-0 left-0 h-full bg-blue-600 text-white w-64 transform ${isOpen ? "translate-x-0" : "-translate-x-full"
+            className={`fixed top-0 left-0 h-screen bg-blue-600 text-white w-64 transform ${isOpen ? "translate-x-0" : "-translate-x-full"
                 } transition-transform md:translate-x-0 md:static md:w-64 z-50`}
         >
             <div className="p-4">
@@ -19,8 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                         <NavLink
                             to="/dashboard"
                             className={({ isActive }) =>
-                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
-                                }`
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""}`
                             }
                         >
                             Dashboard
@@ -30,8 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                         <NavLink
                             to="/dashboard/usersManagement"
                             className={({ isActive }) =>
-                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
-                                }`
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""}`
                             }
                         >
                             Manage Users
@@ -41,8 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                         <NavLink
                             to="/dashboard/manageLessons"
                             className={({ isActive }) =>
-                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
-                                }`
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""}`
                             }
                         >
                             Manage Lessons
@@ -50,36 +57,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                     </li>
                     <li>
                         <NavLink
-                            to="/add-lesson"
-                            className={({ isActive }) =>
-                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
-                                }`
-                            }
-                        >
-                            Add Lesson
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
                             to="/dashboard/vocabularyManagement"
                             className={({ isActive }) =>
-                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
-                                }`
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""}`
                             }
                         >
                             Manage Vocabularies
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink
-                            to="/add-vocabulary"
-                            className={({ isActive }) =>
-                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
-                                }`
-                            }
-                        >
-                            Add Vocabulary
-                        </NavLink>
+                    <li
+                        onClick={handleLogout}
+                        className="cursor-pointer block hover:text-blue-300"
+                    >
+                        Logout
                     </li>
                 </ul>
                 <button

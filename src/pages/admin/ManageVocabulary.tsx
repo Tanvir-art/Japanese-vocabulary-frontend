@@ -17,19 +17,18 @@ type Vocabulary = {
 
 const ManageVocabularies: React.FC = () => {
     // Fetch lessons
-    const { data: lessons = [], isLoading: lessonsLoading } = useGetLessonsQuery({});
+    const { data: lessons, isLoading: lessonsLoading } = useGetLessonsQuery({});
     const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
 
     // Fetch vocabularies for the selected lesson
-    const { data: vocabularies = [], isLoading: vocabulariesLoading, refetch } =
+    const { data: vocabularies, isLoading: vocabulariesLoading, refetch } =
         useGetVocabulariesByLessonQuery(selectedLessonId, { skip: !selectedLessonId });
 
     const [addVocabulary] = useAddVocabularyMutation();
     const [updateVocabulary] = useUpdateVocabularyMutation();
     const [deleteVocabulary] = useDeleteVocabularyMutation();
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [editingVocabulary, setEditingVocabulary] = useState<any | null>(null);
+    const [editingVocabulary, setEditingVocabulary] = useState<Vocabulary | null>(null);
     const [formValues, setFormValues] = useState({
         word: '',
         pronunciation: '',
@@ -42,7 +41,7 @@ const ManageVocabularies: React.FC = () => {
         if (!selectedLessonId) return alert('Please select a lesson.');
 
         if (editingVocabulary) {
-            await updateVocabulary({ id: editingVocabulary.id, ...formValues });
+            await updateVocabulary({ id: editingVocabulary._id, ...formValues });
             setEditingVocabulary(null);
         } else {
             await addVocabulary({ ...formValues, lessonId: selectedLessonId });
@@ -51,8 +50,7 @@ const ManageVocabularies: React.FC = () => {
         refetch();
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleEdit = (vocabulary: any) => {
+    const handleEdit = (vocabulary: Vocabulary) => {
         setEditingVocabulary(vocabulary);
         setFormValues({
             word: vocabulary.word,
@@ -79,15 +77,15 @@ const ManageVocabularies: React.FC = () => {
                 ) : (
                     <select
                         value={selectedLessonId || ''}
-                        onChange={(e) => setSelectedLessonId(e.target.value)}
+                        onChange={(e) => setSelectedLessonId(e.target.value)} // Set the lesson ID
                         className="mt-1 block w-full p-2 border border-gray-300 rounded"
                     >
                         <option value="" disabled>
                             -- Select a Lesson --
                         </option>
-                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                        {lessons.map((lesson: any) => (
-                            <option key={lesson.id} value={lesson.id}>
+                        {/*  eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {lessons?.data?.map((lesson: any) => (
+                            <option key={lesson._id} value={lesson._id}>
                                 {lesson.lessonName} (Lesson {lesson.lessonNumber})
                             </option>
                         ))}
@@ -168,7 +166,7 @@ const ManageVocabularies: React.FC = () => {
                     {vocabulariesLoading ? (
                         <p>Loading vocabularies...</p>
                     ) : (
-                        vocabularies.map((vocabulary: Vocabulary) => (
+                        vocabularies?.data?.map((vocabulary: Vocabulary) => (
                             <div
                                 key={vocabulary._id}
                                 className="bg-white p-4 shadow rounded flex flex-col justify-between"

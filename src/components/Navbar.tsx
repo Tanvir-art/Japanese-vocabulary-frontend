@@ -18,11 +18,10 @@ const Navbar = () => {
                 {user ? (
                     <>
                         <Link to="/lessons">Lessons</Link>
-                        <Link to="/tutorials">Tutorials</Link>
-                        {user.role === "admin" && <Link to="/dashboard">Dashboard</Link>}
+                        {/* <Link to="/tutorials">Tutorials</Link>  */}
                         <button
                             onClick={handleLogout}
-                            className="bg-red-500 px-4 py-2 rounded text-white hover:bg-red-600"
+                            className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700"
                         >
                             Logout
                         </button>
