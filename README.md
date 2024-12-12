@@ -1,50 +1,39 @@
-# React + TypeScript + Vite
+# 日本語 Learn - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the **日本語 Learn** application, a Japanese language learning platform. The app allows users to learn Japanese vocabulary through lessons, with features like vocabulary pronunciation, lesson management, and user authentication.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Authentication**: Login and logout functionality with JWT token-based authentication.
+- **Lesson Management**: Users can view and interact with lessons and vocabulary.
+- **Speech Synthesis**: Vocabulary pronunciation is provided using browser's speech synthesis API.
+- **Responsive Design**: Fully responsive design for desktop, tablet, and mobile devices.
+- **Admin Panel**: Admin users can manage lessons and vocabularies, including CRUD operations.
+- **Confetti Animation**: Celebration effect when a user completes all vocabulary in a lesson.
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Installation](#installation)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Prerequisites
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Ensure you have the following installed on your machine:
+- **Node.js**: Version 14 or higher
+- **npm**: Version 6 or higher
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Steps
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/japanese-learn-frontend.git
+2. cd japanese-learn-frontend
+3.npm install
+4. npm run dev
