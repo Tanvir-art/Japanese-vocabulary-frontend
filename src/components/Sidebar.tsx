@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface SidebarProps {
     isOpen: boolean;
@@ -16,34 +16,70 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 <h2 className="text-2xl font-bold mb-6">Admin Panel</h2>
                 <ul className="space-y-4">
                     <li>
-                        <Link to="/dashboard" className="block hover:text-blue-300">
+                        <NavLink
+                            to="/dashboard"
+                            className={({ isActive }) =>
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
+                                }`
+                            }
+                        >
                             Dashboard
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/manage-users" className="block hover:text-blue-300">
+                        <NavLink
+                            to="/dashboard/usersManagement"
+                            className={({ isActive }) =>
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
+                                }`
+                            }
+                        >
                             Manage Users
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/manage-lessons" className="block hover:text-blue-300">
+                        <NavLink
+                            to="/dashboard/mangeLessons"
+                            className={({ isActive }) =>
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
+                                }`
+                            }
+                        >
                             Manage Lessons
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/add-lesson" className="block hover:text-blue-300">
+                        <NavLink
+                            to="/add-lesson"
+                            className={({ isActive }) =>
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
+                                }`
+                            }
+                        >
                             Add Lesson
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/manage-vocabularies" className="block hover:text-blue-300">
+                        <NavLink
+                            to="/dashboard/vocabularyManagement"
+                            className={({ isActive }) =>
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
+                                }`
+                            }
+                        >
                             Manage Vocabularies
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/add-vocabulary" className="block hover:text-blue-300">
+                        <NavLink
+                            to="/add-vocabulary"
+                            className={({ isActive }) =>
+                                `block hover:text-blue-300 ${isActive ? "font-bold text-lg" : ""
+                                }`
+                            }
+                        >
                             Add Vocabulary
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
                 <button

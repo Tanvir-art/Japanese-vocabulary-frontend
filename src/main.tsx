@@ -8,6 +8,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/Login.tsx'
 import Signup from './pages/Signup.tsx'
 import AdminPanel from './pages/admin/adminPanel.tsx'
+import AdminHome from './pages/admin/adminHome.tsx'
+import UserManagement from './pages/admin/UserManagement.tsx'
+import ManageLessons from './pages/admin/ManageLesson.tsx'
+import ManageVocabularies from './pages/admin/ManageVocabulary.tsx'
 
 const router = createBrowserRouter([
   {
@@ -22,9 +26,29 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />
       },
+
+    ]
+
+  },
+  {
+    path: '/dashboard',
+    element: <AdminPanel />,
+    children: [
       {
-        path: '/admin',
-        element: <AdminPanel />
+        path: '/dashboard',
+        element: <AdminHome />
+      },
+      {
+        path: '/dashboard/usersManagement',
+        element: <UserManagement />
+      },
+      {
+        path: '/dashboard/mangeLessons',
+        element: <ManageLessons />
+      },
+      {
+        path: '/dashboard/vocabularyManagement',
+        element: <ManageVocabularies />
       }
     ]
   },
