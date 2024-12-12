@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetLessonsQuery } from '../../redux/api/authApi';
-type Lesson = {
+export type Lesson = {
     _id: string;
     lessonName: string;
     lessonNumber: number;
